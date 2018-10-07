@@ -59,7 +59,11 @@ console.log(n.endsWith('th'));
 console.log(n.includes(' '));
 console.log(firstName.repeat(5));
 console.log(`${firstName} is my name`.repeat(5));
+
+// //////////////////////////////
 // -------ARROW FUNCTIONS-------
+// //////////////////////////////
+
 const years = [1990, 1965, 1982, 1937];
 // ES6
 // One argument in single line of code
@@ -75,8 +79,9 @@ ages6 = years.map((el, index) => {
   return `Age element ${index + 1}: ${age}.`;
 });
 console.log(ages6);
-
+// //////////////////////////////
 // -------Biggest advantage of arrow functions - they don't have their own this keyword, they use 'lexical' this keyword--------
+// //////////////////////////////
 // ES5
 // var ages5 = years.map(function(el) {
 //   return 2016 - el;
@@ -128,7 +133,10 @@ console.log(one);
 console.log(two);
 console.log(three);
 console.log(four);
+// //////////////////////////////
 // ------- DESTRUCTURING -------
+// //////////////////////////////
+
 // We can destructure a data destructure
 const [name, age] /* with left side we destruct data structure */ = ['John', 26];
 // With this here on the right we build data structure
@@ -166,8 +174,10 @@ Array.from(boxes).forEach((cur) => {
 });
 
 // Foreach and map cant break through the loop., es5 we have if statement and continue inside of it to skip it in for loop, to break or continue statements in a loop in ES6 use for of.
-
+// //////////////////////////
 // -------FOR OF LOOP-------
+// //////////////////////////
+
 // const boxesArr6 = Array.from(boxes);
 // for (const cur of boxesArr6) {
 //   if(cur.className.includes('blue')) {
@@ -180,8 +190,10 @@ Array.from(boxes).forEach((cur) => {
 // console.log(ages2.findIndex(arrPosition => arrPosition >= 18));
 // console.log(ages2.find(elValue => elValue >= 18));
 
-
+// /////////////////////////////
 // ------SPREAD OPERATOR-------
+// /////////////////////////////
+
 function addFourAges(e, f, g, h) {
   return e + f + g + h;
 }
@@ -203,8 +215,9 @@ Array.from(all).forEach((cur) => {
   const current = cur;
   current.style.color = 'purple';
 });
-
+// /////////////////////////////
 // ------Rest parameters-------
+// /////////////////////////////
 // exact oposite of spread operators
 // ES5  arguments is a speciable variable available in all functions.
 // var argumentsArray = Array.prototype.slice.call(arguments) to transform it into an array, it is object right now!
@@ -217,8 +230,10 @@ function isFullAge10(fullAge, ...yearsArray) {
 }
 isFullAge10(21, 1990, 1999, 1986, 2012);
 // Spread operator is used in a function call, while the rest operator is used in a function declaration
-
+// ///////////////////////////////////
 // ------- DEFAULT PARAMETERS -------
+// ///////////////////////////////////
+
 // ES5
 // function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
 //   lastName === undefined ? lastName = 'Smith' : lastName = lastName;
@@ -244,3 +259,105 @@ const john = new SmithPerson('John', 1987);
 const emily = new SmithPerson('Emily', 1983, 'Diaz', 'Spanish');
 console.log(john);
 console.log(emily);
+// /////////////////////
+// ------- MAPS -------
+// ////////////////////
+// In maps you cna use anything for the keys, while in objects we were limited to Strings
+// Build a quiz for example
+const question = new Map();
+question.set('question', 'What is the name of latest major JS version?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES7');
+question.set('correct', 3);
+question.set(true, 'Correct answer');
+question.set(false, 'Wrong, please try again!');
+
+console.log(question.get('question'));
+// console.log(question.size);
+
+// if (question.has(4)) {
+//   // question.delete(4);
+//   console.log('Answer 4 is here');
+// }
+
+// question.clear();  Deletes all from question Map
+// We can loop through Maps! Way better than objects!
+// question.forEach((value, key) => console.log(`This is ${key}, and it's set to: ${value}`));
+//  Destructuring same works for arrays with .entries to show you key, value pairs
+// question.entries returns all key value pairs!
+// and then for example only print if key is a number
+for(let [key, value] of question.entries()) {
+  if(typeof(key) === 'number') {
+    console.log(`Answer ${key}: ${value}`);
+  }
+}
+
+const answer = parseInt(prompt('Write the correct answer'));
+console.log(question.get(answer === question.get('correct')));
+
+// ////////////////////////
+// ------- CLASSES -------
+// ////////////////////////
+// ES5 we use function declaration, and in es6 we use class declaration
+var Persn5 = function(name, yearOfBirth5, job) {
+  this.name = name;
+  this.yearOfBirth5 = yearOfBirth5;
+  this.job = job;
+};
+
+Persn5.prototype.calculateAge = function() {
+  var age5 = new Date().getFullYear() - this.yearOfBirth5;
+  console.log(age5);
+};
+
+var john5 = new Persn5('John', 1990, 'teacher');
+
+// ES6
+class Person6 {
+  constructor(name6, yearOfBirth6, job) {
+    this.name6 = name6;
+    this.yearOfBirth6 = yearOfBirth6;
+    this.job = job;
+  }
+
+  calculateAge() {
+    const age6 = new Date().getFullYear() - this.yearOfBirth6;
+    console.log(age6);
+  }
+}
+const jon6 = new Person6('Primoz', 1987, 'web developer');
+
+// ////////////////////////
+// ------- CLASSES WITH SUBCLASSES -------
+// ////////////////////////
+// It just takes same class from above code
+// class Person6 {
+//   constructor(name6, yearOfBirth6, job) {
+//     this.name6 = name6;
+//     this.yearOfBirth6 = yearOfBirth6;
+//     this.job = job;
+//   }
+//
+//   calculateAge() {
+//     const age6 = new Date().getFullYear() - this.yearOfBirth6;
+//     console.log(age6);
+//   }
+// }
+class Athlete6 extends Person6 {
+  constructor(name6, yearOfBirth6, job, olympicGames, medals) {
+    super(name6, yearOfBirth, job);
+    this.olympicGames = olympicGames;
+    this.medals = medals;
+  }
+
+  wonMedal() {
+    this.medals += 1;
+    console.log(this.medals);
+  }
+}
+
+const athlete6 = new Athlete6('Primoz', 1987, 'swimmer', 3, 2);
+athlete6.wonMedal();
+athlete6.calculateAge();
